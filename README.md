@@ -15,6 +15,28 @@ devtools::install_github('huangwb8/luckyExperiment')
 
 ### 1. FastQPCR
 
+#### package
+
+install needed packages
+
+```R
+package.need <- c('tidyr','readxl')
+for( i in package.need){
+  if (!requireNamespace(i, quietly = TRUE)){
+    install.packages(i)
+    library(i,character.only = T)
+  } else {
+    library(i,character.only = T)
+ }
+} 
+```
+
+or you can just use:
+
+```R
+Plus.library(c('tidyr','readxl'))
+```
+
 #### example data
 
 ```R
