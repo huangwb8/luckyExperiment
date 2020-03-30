@@ -1,0 +1,59 @@
+---
+title: "Manual for luckyExperiment"
+author: 
+- name: Weibin Huang
+  email: 654751191@qq.com
+  affiliation: First affiliated hospital, Sun Yat-sen University
+date: "`r Sys.Date()`"
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+  pdf_document:
+    toc: true
+vignette: >
+  %\VignetteIndexEntry{Manual for luckyExperiment}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\usepackage[utf8]{inputenc}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r style, echo=FALSE, results="asis", message=FALSE}
+knitr::opts_chunk$set(tidy = FALSE,
+                      warning = FALSE,
+                      message = FALSE)
+```
+
+# Overview
+It's a tool for the analysis of some biological experiments, such as qPCR.
+
+## FastQPCR
+```{r}
+
+library(ggplot2)
+
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
