@@ -11,17 +11,19 @@ if (!requireNamespace("devtools", quietly = TRUE))
 devtools::install_github('huangwb8/luckyExperiment')
 ```
 
+library `luckyExperiment` package, just do: 
+
+```R
+library(luckyExperiment)
+```
+
+Thus, every functions next in `luckyExperiment` can only be available.
+
 ## Functions
 
 ### 1. FastQPCR
 
 #### package
-
-library luckyExperiment
-
-```R
-library(luckyExperiment)
-```
 
 install other needed packages
 
@@ -37,7 +39,7 @@ for( i in package.need){
 } 
 ```
 
-or you can just use:
+or you can just simply use `luckyExperiment::Plus.library` to do this:
 
 ```R
 Plus.library(c('tidyr','readxl'))
@@ -46,6 +48,7 @@ Plus.library(c('tidyr','readxl'))
 #### example data
 
 ```R
+# a RT-PCR data for analysis
 data <- system.file("extdata","testData_qPCR.xlsx", package = "luckyExperiment") %>% read_xlsx %>% as.data.frame
 View(data)
 ```
