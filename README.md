@@ -17,7 +17,13 @@ devtools::install_github('huangwb8/luckyExperiment')
 
 #### package
 
-install needed packages
+library luckyExperiment
+
+```R
+library(luckyExperiment)
+```
+
+install other needed packages
 
 ```R
 package.need <- c('tidyr','readxl')
