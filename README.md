@@ -2,6 +2,8 @@
 
 A R package for biological experiments analysis. Beta version now.
 
+> Note: If you are NEW in R programing, you had better deal with all the code here in [Rstudio](https://rstudio.com/products/rstudio/), one of the best IDE for R programing. 
+
 ## Installation
 
 ```R
