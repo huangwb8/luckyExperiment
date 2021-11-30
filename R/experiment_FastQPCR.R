@@ -138,7 +138,8 @@ FastQPCR <- function(data,
       legend.position = "bottom",
       strip.background = element_rect(fill="white"),
       strip.text = element_text(face = "bold",size = 15*size/20,hjust = 0.5)
-    )
+    ) +
+    rotate_x_text(angle = 45)
 
   win.graph(min(24,(5/3)*length(unique(data2$markers)) + (20/3)),8);print(p.con)
 
