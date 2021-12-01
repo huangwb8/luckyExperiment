@@ -11,13 +11,13 @@
 
 #### A R package for biological experiments analysis. Beta version now.
 
-> Note: If you are NEW in R programing, you had better deal with all the code here in [Rstudio](https://rstudio.com/products/rstudio/), one of the best IDE for R programing. 
-
 ## :alien: Authors
 
 Weibin Huang (黄伟斌);  <654751191@qq.com>; 
 
 ## :+1: Installation
+
+Note: If you are NEW in R programing, you had better deal with all the code here in [RStudio](https://rstudio.com/products/rstudio/), one of the best IDE for R programing. 
 
 ```R
 # Install devtools
