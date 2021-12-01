@@ -24,7 +24,7 @@ Note: If you are NEW in R programing, you had better deal with all the code here
 if (!requireNamespace("devtools", quietly = TRUE))
     install.packages("devtools")
 
-# Install depend package
+# Install dependancies
 devtools::install_github('huangwb8/luckyBase')
 
 # Install luckyExperiment
