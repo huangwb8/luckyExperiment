@@ -16,14 +16,19 @@ LazyData: true
 RoxygenNote: 7.1.1
 Imports: 
     Biostrings,
+    boot,
     dplyr,
     DT,
     ggplot2,
     ggpubr,
     httr,
+    MASS,
     plyr,
+    reshape2,
+    rmda,
     Rmisc,
     stats4,
+    survival,
     tidyr
 Depends: 
     luckyBase
