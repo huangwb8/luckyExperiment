@@ -138,60 +138,59 @@ FastQPCR <- function(data,
       legend.position = "bottom",
       strip.background = element_rect(fill="white"),
       strip.text = element_text(face = "bold",size = 15*size/20,hjust = 0.5)
-    ) +
-    rotate_x_text(angle = 45)
+    )
 
   win.graph(min(24,(5/3)*length(unique(data2$markers)) + (20/3)),8);print(p.con)
 
   ###======================计算有效数据====================###
   if(T){
-    ## 计算某个marker中， 某group 中，某sample中，某biorepeat中，parallel repeat的平均值
-    colnames(data)[match(value,colnames(data))] <- "Ct"
-    data.exp <- ddply(.data = data,
-                      .variables = c(marker,group,sample,bioRepeat),
-                      summarise,
-                      Ct.mean = mean(Ct))
-    data.internal <- data.exp[as.character(data.exp[,marker]) %in% internal,]
-    data.exp2 <-data.exp[!as.character(data.exp[,marker]) %in% internal,]
+  ## 计算某个marker中， 某group 中，某sample中，某biorepeat中，parallel repeat的平均值
+  colnames(data)[match(value,colnames(data))] <- "Ct"
+  data.exp <- ddply(.data = data,
+                    .variables = c(marker,group,sample,bioRepeat),
+                     summarise,
+                     Ct.mean = mean(Ct))
+  data.internal <- data.exp[as.character(data.exp[,marker]) %in% internal,]
+  data.exp2 <-data.exp[!as.character(data.exp[,marker]) %in% internal,]
 
-    ## 对于某个sample，计算各marker与内参之间的Ct差值
-    get1 <- function(x){
-      # x <- data.exp2[1,]
-      x <- as.character(as.matrix(x))
-      sample.i <- as.character(x[3]) #sample
-      Ct.mean.marker.i <- as.numeric(as.character(x[5]))#Ct.mean
-      data.internal.i <- data.internal[as.character(data.internal[,sample]) %in% sample.i,] #选出某sample的内参数据
-      Ct.mean.internal.i <- mean(as.numeric(as.character(data.internal.i[,"Ct.mean"]))) #某个生物学重复，其内参求均值
-      dif <- Ct.mean.marker.i - Ct.mean.internal.i
-      return(dif)
-    }
-    data.exp3 <- ddply(.data = data.exp2,
-                       .variables = c(marker,group,sample,bioRepeat),
-                       .fun = get1)
-    colnames(data.exp3)[ncol(data.exp3)] <- "dif" #各marker与内参之间的Ct差值
+  ## 对于某个sample，计算各marker与内参之间的Ct差值
+  get1 <- function(x){
+    # x <- data.exp2[1,]
+    x <- as.character(as.matrix(x))
+    sample.i <- as.character(x[3]) #sample
+    Ct.mean.marker.i <- as.numeric(as.character(x[5]))#Ct.mean
+    data.internal.i <- data.internal[as.character(data.internal[,sample]) %in% sample.i,] #选出某sample的内参数据
+    Ct.mean.internal.i <- mean(as.numeric(as.character(data.internal.i[,"Ct.mean"]))) #某个生物学重复，其内参求均值
+    dif <- Ct.mean.marker.i - Ct.mean.internal.i
+    return(dif)
+  }
+  data.exp3 <- ddply(.data = data.exp2,
+                     .variables = c(marker,group,sample,bioRepeat),
+                     .fun = get1)
+  colnames(data.exp3)[ncol(data.exp3)] <- "dif" #各marker与内参之间的Ct差值
 
-    ## 计算其它group与group control的差值
-    # 先计算control组中，dif的平均值
-    data.exp3.control <- data.exp3[data.exp3[,group] %in% group.control,]
-    data.exp3.control.Ctmean <- ddply(
-      .data = data.exp3.control,
-      .variables = marker,
-      summarise,
-      dif.mean = mean(dif))
-    # 再计算2的-△t次方
-    get2 <- function(x){
-      # x <- data.exp3[as.character(data.exp3$markers) == "RP3",]
-      ## control组的平均dif值
-      marker.x <- as.character(unique(x[,marker]))
-      dif.x <- data.exp3.control.Ctmean[match(marker.x,data.exp3.control.Ctmean[,marker]),"dif.mean"]
-      # 计算2的-△t次方
-      x$fc <- 2^(-(x[,"dif"] - dif.x))
-      return(x)
-    }
-    newData <- ddply(.data = data.exp3,
-                     .variables = marker,
-                     .fun = get2)
-    colnames(newData)[match(group,colnames(newData))] <- "groups"
+  ## 计算其它group与group control的差值
+  # 先计算control组中，dif的平均值
+  data.exp3.control <- data.exp3[data.exp3[,group] %in% group.control,]
+  data.exp3.control.Ctmean <- ddply(
+    .data = data.exp3.control,
+    .variables = marker,
+    summarise,
+    dif.mean = mean(dif))
+  # 再计算2的-△t次方
+  get2 <- function(x){
+    # x <- data.exp3[as.character(data.exp3$markers) == "RP3",]
+    ## control组的平均dif值
+    marker.x <- as.character(unique(x[,marker]))
+    dif.x <- data.exp3.control.Ctmean[match(marker.x,data.exp3.control.Ctmean[,marker]),"dif.mean"]
+    # 计算2的-△t次方
+    x$fc <- 2^(-(x[,"dif"] - dif.x))
+    return(x)
+  }
+  newData <- ddply(.data = data.exp3,
+                   .variables = marker,
+                   .fun = get2)
+  colnames(newData)[match(group,colnames(newData))] <- "groups"
   }
   # View(newData)
 
@@ -207,7 +206,7 @@ FastQPCR <- function(data,
     ## 此时有多个marker(除内参外)
     p <- ggbarplot(newData, x = marker,y = "fc",
                    # color = "groups",
-                   color = "black",
+                   color = 'black',
                    fill = "groups",
                    palette = palette,
                    label = F,
@@ -232,9 +231,10 @@ FastQPCR <- function(data,
     p <- ggbarplot(newData,
                    x = "groups",
                    y = "fc",
-                   fill = "groups",
-                   color = "black",
+                   # color = "groups",
+                   color = 'black',
                    palette = palette,
+                   fill = "groups",
                    label = F,
                    position = position_dodge(0.8),
                    add = "mean_se",

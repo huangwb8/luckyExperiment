@@ -8,8 +8,17 @@ Description: useful functions for biology experiment. Beta version now.
 License: GPL-2
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.1
 Imports: 
+    Biostrings,
+    dplyr,
+    DT,
     ggplot2,
     ggpubr,
-    plyr
+    httr,
+    plyr,
+    Rmisc,
+    stats4,
+    tidyr
+Depends: 
+    luckyBase
