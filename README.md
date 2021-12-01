@@ -1,84 +1,36 @@
-## Introduction
+# luckyExperiment
 
-A R package for biological experiments analysis. Beta version now.
+<p align="left">
+<a href=""><img src="https://img.shields.io/github/r-package/v/huangwb8/luckyExperiment"></a>
+<a href="https://github.com/huangwb8/luckyBase/blob/master/license.txt"><img src="https://img.shields.io/badge/license-MIT-green"></a>
+<a href=""><img src="https://img.shields.io/badge/platform-windows%20%7C%20linux-lightgrey"></a>
+<a href=""><img src="https://img.shields.io/github/commit-activity/m/huangwb8/luckyExperiment"></a>
+<a href=""><img src="https://img.shields.io/github/stars/huangwb8/luckyExperiment?style=social"></a>
+<a href="https://github.com/huangwb8/luckyExperiment/issues"><img src="https://img.shields.io/github/issues-raw/huangwb8/luckyExperiment"></a>
+</p>
+
+#### A R package for biological experiments analysis. Beta version now.
 
 > Note: If you are NEW in R programing, you had better deal with all the code here in [Rstudio](https://rstudio.com/products/rstudio/), one of the best IDE for R programing. 
 
-## Installation
+## :alien: Authors
+
+Weibin Huang (黄伟斌);  <654751191@qq.com>; 
+
+## :+1: Installation
 
 ```R
-# install luckyExperiment
+# Install devtools
 if (!requireNamespace("devtools", quietly = TRUE))
     install.packages("devtools")
+
+# Install depend package
+devtools::install_github('huangwb8/luckyBase')
+
+# Install luckyExperiment
 devtools::install_github('huangwb8/luckyExperiment')
 ```
+## :camel: Tutorial
 
-library `luckyExperiment` package, just do: 
+To be continued...
 
-```R
-library(luckyExperiment)
-```
-
-Thus, every functions next in `luckyExperiment` can only be available.
-
-## Functions
-
-### 1. FastQPCR
-
-#### package
-
-install other needed packages
-
-```R
-package.need <- c('tidyr','readxl')
-for( i in package.need){
-  if (!requireNamespace(i, quietly = TRUE)){
-    install.packages(i)
-    library(i,character.only = T)
-  } else {
-    library(i,character.only = T)
- }
-} 
-```
-
-or you can just simply use `luckyExperiment::Plus.library` to do this:
-
-```R
-Plus.library(c('tidyr','readxl'))
-```
-
-#### example data
-
-```R
-# a RT-PCR data for analysis
-data <- system.file("extdata","testData_qPCR.xlsx", package = "luckyExperiment") %>% read_xlsx %>% as.data.frame
-View(data)
-```
-
-#### FastQPCR analysis
-
-```{r}
-result_qpcr <- FastQPCR(data,
-                        sample = "samples", 
-                        marker = "markers",
-                        bioRepeat = "biorepeat", 
-                        parallelRepeat = "parepeat",
-                        group = "groups", 
-                        group.control = "sh-Negative", 
-                        internal = "GAPDH",
-                        value = "Ct", 
-                        plot.type = 1, # one marker
-                        palette = NULL,
-                        size = 20, 
-                        label.position  = c(1,1.5),
-                        label.type = "p.format",
-                        method =  "anova",
-                        x.title = "Groups", 
-                        y.title = "The Relative Expression of Genes",
-                        legend.position = "top")
-
-# result
-View(result_qpcr$Data$metadata)
-View(result_qpcr$Data$statistc$whole)
-View(result_qpcr$Data$statistc$pair) 
-```
