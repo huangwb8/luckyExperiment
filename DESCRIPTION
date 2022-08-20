@@ -1,7 +1,7 @@
 Package: luckyExperiment
 Type: Package
 Title: useful functions for biology experiment
-Version: 1.1.0
+Version: 1.1.1
 Authors@R:
     person(given = "Weibin",
            family = "Huang",
@@ -17,16 +17,20 @@ RoxygenNote: 7.1.1
 Imports: 
     Biostrings,
     boot,
+    cowplot,
     dplyr,
     DT,
     ggplot2,
     ggpubr,
+    ggrepel,
+    graphics,
     httr,
     MASS,
     plyr,
     reshape2,
     rmda,
     Rmisc,
+    rstatix,
     stats4,
     survival,
     tidyr

@@ -317,6 +317,8 @@ setGeneric("statistics", function(object, ...) {
 #' @importFrom dplyr filter
 #' @importFrom ggpubr compare_means
 #' @importFrom DT datatable
+#' @importFrom rstatix t_test
+#' @importFrom rstatix wilcox_test
 #' @exportMethod statistics
 setMethod(
   "statistics",
@@ -337,17 +339,53 @@ setMethod(
     d2 <- d[c("Time", "Group", "ID", type)]; colnames(d2)[ncol(d2)] <- 'type'
 
     # Comparison of Means
-    res <- compare_means(type ~ Group,
-                         data = d2,
-                         method = "wilcox.test",
-                         group.by = 'Time',
-                         paired = FALSE,
-                         p.adjust.method = 'BH')
+    # res <- compare_means(type ~ Group,
+    #                      data = d2,
+    #                      method = "wilcox.test",
+    #                      group.by = 'Time',
+    #                      paired = FALSE,
+    #                      p.adjust.method = 'BH')
 
-    if(verbose) print(DT::datatable(res))
+
+    # P value function
+    fun_comparision <- function(method){
+      if(method == "wilcox.test"){
+        if(verbose) message('Use Wilcox test.')
+        rstatix::wilcox_test
+      } else if(method == "t.test"){
+        if(verbose) message('Use t test.')
+        rstatix::t_test
+      } else {
+        if(verbose) message('Wrong p value method. Use t test for default.')
+        rstatix::t_test
+      }
+    }
+    fun_comparision_target <- fun_comparision(method)
+
+
+    # P value
+    time <- unique(d2$Time)
+    df.p <- data.frame()
+    for(i in 1:length(time)){ # i=1
+      d2.i <- d2[d2$Time %in% time[i],]
+      df.p_i <- fun_comparision_target(
+        data = d2.i,
+        formula = type ~ Group,
+        p.adjust.method = p.adjust.method,
+        paired = paired,
+        alternative = "two.sided",
+        mu = 0,
+        conf.level = 0.95,
+        detailed = FALSE
+      )
+      df.p_i2 <- cbind(Time = time[i], df.p_i)
+      df.p <- rbind(df.p, df.p_i2)
+    }
+
+    if(verbose) print(DT::datatable(df.p))
 
     # Output
-    return(res)
+    return(df.p)
   }
 )
 
