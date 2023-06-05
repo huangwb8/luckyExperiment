@@ -23,6 +23,7 @@ getNomogram(
   standard.ylim = c(0, 1),
   standard.width = 10,
   standard.height = 10,
+  path = "./Nomogram",
   names = "love1"
 )
 }
@@ -62,6 +63,8 @@ getNomogram(
 \item{standard.width}{parameters of output plot}
 
 \item{standard.height}{parameters of output plot}
+
+\item{path}{the path of results saved}
 
 \item{names}{# part of file names.}
 }

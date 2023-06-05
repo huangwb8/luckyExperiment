@@ -53,7 +53,7 @@ a \code{LuckyCCK8} object
 Fast methods for CCK8 data analysis
 }
 \examples{
-data <- readxl::read_xlsx("E:/iProjects/exosome/experiment/exosome_1A/CCK8/CCK8_HGC27鐨勫悎閫傜妞嶆暟閲忓強瑙傚療鏃堕棿_20190424.xlsx", na = "NA")
+data <- readxl::read_xlsx("E:/iProjects/exosome/experiment/exosome_1A/CCK8/CCK8_HGC27的合适种植数量及观察时间_20190424.xlsx", na = "NA")
 
 object <- lucky::FastCCK8(data)
 View(object$Data$statistics$two)

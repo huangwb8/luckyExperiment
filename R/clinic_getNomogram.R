@@ -20,6 +20,7 @@
 #' @param standard.ylim Default is c(0,1)
 #' @param standard.width parameters of output plot
 #' @param standard.height parameters of output plot
+#' @param path the path of results saved
 #' @param names # part of file names.
 #' @seealso \code{\link[rms]{calibrate}};\code{\link[rms]{cph}};\code{\link[rms]{nomogram}}
 #' @author Weibin Huang<\email{654751191@@qq.com}>
@@ -102,14 +103,14 @@ getNomogram <- function(data,
                         standard.ylim = c(0,1),
                         standard.width = 10,
                         standard.height = 10,
+                        path = "./Nomogram",
                         names = "love1"){
   ## 包
   need <- c("rms","survival","nomogramEx","polspline")
   Plus.library(need)
 
   ## save path
-  ### grobal option
-  dir_output <- "./Nomogram"
+  dir_output = path;
   dir.create(dir_output,recursive = T,showWarnings = F)
 
   ## 选择data

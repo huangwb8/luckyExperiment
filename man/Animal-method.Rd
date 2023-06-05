@@ -11,8 +11,12 @@
 \method{plot}{Animal}(
   object,
   type = c("tumorVolume", "weight")[1],
-  list.color = {     list.color <- mycolor[1:7]     names(list.color) <- paste("G",
-    1:7, sep = "")     list.color },
+  list.color = {
+     list.color <- mycolor[1:7]
+     names(list.color) <- paste("G",
+    1:7, sep = "")
+     list.color
+ },
   legend.position = "right",
   label.size = 0.15,
   plot.size = 25,
